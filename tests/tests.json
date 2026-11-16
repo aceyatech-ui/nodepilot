@@ -1,0 +1,75 @@
+[
+  {
+    "name": "Sign in, create a workflow, and retain it",
+    "sanity": true,
+    "viewport": "desktop",
+    "covers": [
+      "AppDeploy authentication restoration",
+      "private workflow creation",
+      "workflow persistence after reload",
+      "account-scoped workspace"
+    ],
+    "description": "Verifies a signed-in user can create a workflow and find it after reloading the workspace.",
+    "steps": [
+      "Sign in using an available provider",
+      "Create a workflow named 'Lead triage'",
+      "Save the workflow",
+      "Refresh the page"
+    ],
+    "expected": "The 'Lead triage' workflow appears in the user's workspace and can be reopened with its nodes and connections intact."
+  },
+  {
+    "name": "Import and export workflow JSON",
+    "viewport": "desktop",
+    "covers": [
+      "JSON import validation",
+      "workflow JSON export",
+      "unsupported-node guardrail"
+    ],
+    "description": "Verifies a supported workflow JSON file can be imported and exported, while unsupported node types are rejected.",
+    "steps": [
+      "Import a valid NodePilot workflow JSON containing a trigger, set node, and output node",
+      "Export the workflow as JSON",
+      "Open the exported file and verify it contains nodes and edges",
+      "Attempt to import a JSON workflow containing an unsupported code node"
+    ],
+    "expected": "The valid workflow is exported with its nodes and edges; the unsupported workflow is rejected with a clear message and does not replace the current draft."
+  },
+  {
+    "name": "Generate a workflow with Gemini",
+    "viewport": "desktop",
+    "covers": [
+      "Gemini assistant generation",
+      "server-side Gemini secret use",
+      "generated workflow validation",
+      "AI failure feedback"
+    ],
+    "description": "Verifies Gemini turns a natural-language request into a validated workflow and surfaces configuration errors clearly.",
+    "steps": [
+      "Open Ask Gemini",
+      "Describe a workflow that starts manually, sets a priority field, and displays the output",
+      "Generate the workflow",
+      "Review the generated nodes on the canvas"
+    ],
+    "expected": "A valid workflow appears in the editor for review and no workflow action is executed automatically."
+  },
+  {
+    "name": "Run a workflow and inspect execution history",
+    "viewport": "mobile",
+    "covers": [
+      "safe workflow execution",
+      "node step limits",
+      "execution history persistence",
+      "visible run output",
+      "manual trigger requirement"
+    ],
+    "description": "Verifies a valid trigger-to-set-to-output workflow executes and its result is retained in run history.",
+    "steps": [
+      "Open a workflow containing a Manual Trigger, Set Values, and Output node",
+      "Run the workflow",
+      "Open Execution history",
+      "Open the completed run details"
+    ],
+    "expected": "The run is marked completed, the output contains the configured fields, and the run remains visible in execution history."
+  }
+]
